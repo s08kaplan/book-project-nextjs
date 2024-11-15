@@ -4,6 +4,7 @@ import React from 'react'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -34,10 +35,12 @@ const Navbar = () => {
         </div>
         <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
           <div className="flex items-center shrink-0">
-            <img
+            <Image
               alt="Your Company"
-              src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
-              className="w-auto h-8"
+              src="/logo.png"
+              width={32}
+              height={32}
+              className="w-8 h-8"
             />
           </div>
           <div className="hidden sm:ml-6 sm:block">
@@ -47,6 +50,7 @@ const Navbar = () => {
                   key={item.name}
                   href={item.href}
                   aria-current={item.current ? 'page' : undefined}
+                  prefetch={true}
                   className={classNames(
                     item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'rounded-md px-3 py-2 text-sm font-medium',
@@ -74,9 +78,11 @@ const Navbar = () => {
               <MenuButton className="relative flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">Open user menu</span>
-                <img
-                  alt=""
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                <Image
+                  alt="avatar"
+                  src="/avatar.png"
+                  width={32}
+                  height={32}
                   className="rounded-full size-8"
                 />
               </MenuButton>
@@ -88,6 +94,7 @@ const Navbar = () => {
               <MenuItem>
                 <Link
                   href="/profile"
+                  prefetch={true}
                   className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
                 >
                   Your Profile
@@ -104,6 +111,7 @@ const Navbar = () => {
               <MenuItem>
                 <Link
                   href="#"
+                  prefetch={true}
                   className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
                 >
                   Sign out
@@ -123,6 +131,7 @@ const Navbar = () => {
             as={Link}
             href={item.href}
             aria-current={item.current ? 'page' : undefined}
+            prefetch={true}
             className={classNames(
               item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
               'block rounded-md px-3 py-2 text-base font-medium',
