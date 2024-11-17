@@ -4,9 +4,18 @@ import mongoose, { Document, Model, Schema } from "mongoose";
 import { passwordEncrypt,
   emailValidate } from "@/src/helpers/validationHelpers"
 
+  interface IUser extends Document {
+    username: string;
+    email: string;
+    password: string;
+    isActive: boolean;
+    isAdmin: boolean;
+    gender?: string;
+    image?: string;
+  }
+  
 
-
-const UserSchema = new Schema(
+const UserSchema = new Schema<IUser>(
   {
     username: {
       type: String,
@@ -55,5 +64,5 @@ const UserSchema = new Schema(
   }
 );
 
-const User = mongoose.models.User || mongoose.model("User", UserSchema);
+const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
 export default User;
