@@ -73,7 +73,7 @@ const Footer = () => {
             </h3>
             <ul className="mt-6 space-y-4">
               {about.map(({ title, href }) => (
-                <li>
+                <li key={title}>
                   <Link
                     href={href}
                     className="text-sm leading-6 text-gray-600 hover:text-gray-900"
@@ -90,7 +90,7 @@ const Footer = () => {
             </h3>
             <ul className="mt-6 space-y-4">
               {genres.map(({ name, href }) => (
-                <li>
+                <li key={name}>
                   <Link
                     href={href}
                     className="text-sm leading-6 text-gray-600 hover:text-gray-900"
