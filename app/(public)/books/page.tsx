@@ -1,8 +1,12 @@
 import React from 'react'
+import { fetchBooks } from "@/functions/functions"
+import ClientBooks from './ClientBooks'
 
-const Books = () => {
+
+const Books = async () => {
+ const data = await fetchBooks()
   return (
-    <div>Books</div>
+    <ClientBooks data={data}/>
   )
 }
 

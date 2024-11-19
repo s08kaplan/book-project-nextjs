@@ -3,9 +3,13 @@ import Book from "@/models/book"
 import { dbConnection } from "@/lib/dbConnection";
 
 
-const primaryDataSamples = async () => {
+export const primaryDataSamples = async () => {
   try {
      dbConnection()
+
+     await Book.deleteMany({});
+     console.log("Existing data cleared.");
+     
     await Book.insertMany([
         {
             "name": "The Silent Patient",
@@ -14,7 +18,7 @@ const primaryDataSamples = async () => {
             "summary": "A gripping psychological thriller about a woman who stops speaking after a crime.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/91BbLCJOruL.jpg"
           },
           {
             "name": "Atomic Habits",
@@ -23,7 +27,7 @@ const primaryDataSamples = async () => {
             "summary": "A guide to building good habits and breaking bad ones through small, incremental changes.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/81F90H7hnML.jpg"
           },
           {
             "name": "Where the Crawdads Sing",
@@ -32,7 +36,7 @@ const primaryDataSamples = async () => {
             "summary": "A tale of isolation and resilience as a young woman grows up alone in the marshlands.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE1MvpyqtgEYzrVbWSW99XRgjDkPCc032pKw&s"
           },
           {
             "name": "Dune",
@@ -41,7 +45,7 @@ const primaryDataSamples = async () => {
             "summary": "A saga of politics, religion, and ecology on the desert planet of Arrakis.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/91bNnC0hTFL._AC_UF1000,1000_QL80_.jpg"
           },
           {
             "name": "Educated",
@@ -50,7 +54,7 @@ const primaryDataSamples = async () => {
             "summary": "A powerful memoir about a woman overcoming her survivalist upbringing to achieve an education.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/71-4MkLN5jL.jpg"
           },
           {
             "name": "Circe",
@@ -59,7 +63,7 @@ const primaryDataSamples = async () => {
             "summary": "A feminist retelling of the story of Circe, the witch from Greek mythology.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/91r0y3YEfGL._AC_UF1000,1000_QL80_.jpg"
           },
           {
             "name": "Becoming",
@@ -68,7 +72,7 @@ const primaryDataSamples = async () => {
             "summary": "The memoir of Michelle Obama, chronicling her journey from childhood to the White House.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/81KGjsBXQ7L._AC_UF1000,1000_QL80_.jpg"
           },
           {
             "name": "The Night Circus",
@@ -77,7 +81,7 @@ const primaryDataSamples = async () => {
             "summary": "A magical competition between two young illusionists within a mysterious circus.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/81wHpiNObnL.jpg"
           },
           {
             "name": "The Song of Achilles",
@@ -86,7 +90,7 @@ const primaryDataSamples = async () => {
             "summary": "A tragic love story between Achilles and Patroclus set in ancient Greece.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/81msb6gUBTL.jpg"
           },
           {
             "name": "Project Hail Mary",
@@ -95,7 +99,7 @@ const primaryDataSamples = async () => {
             "summary": "A lone astronaut must save Earth from an impending disaster in this thrilling space adventure.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/91vS2L5YfEL._UF894,1000_QL80_.jpg"
           },
           {
             "name": "The Midnight Library",
@@ -104,7 +108,7 @@ const primaryDataSamples = async () => {
             "summary": "A story about a library where every book represents a different life path.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/71FsIkGF3pL._AC_UF1000,1000_QL80_.jpg"
           },
           {
             "name": "A Court of Thorns and Roses",
@@ -113,7 +117,7 @@ const primaryDataSamples = async () => {
             "summary": "A young huntress is drawn into a world of faeries and danger.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/81rJtdRBSFL._AC_UF1000,1000_QL80_.jpg"
           },
           {
             "name": "The Alchemist",
@@ -122,7 +126,7 @@ const primaryDataSamples = async () => {
             "summary": "A shepherd’s journey to fulfill his dreams and find treasure in Egypt.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/81FPzmB5fgL._AC_UF1000,1000_QL80_.jpg"
           },
           {
             "name": "It Ends With Us",
@@ -131,7 +135,7 @@ const primaryDataSamples = async () => {
             "summary": "A touching story about love, heartbreak, and finding strength in the most challenging situations.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/817vqET828L._AC_UF1000,1000_QL80_.jpg"
           },
           {
             "name": "The 48 Laws of Power",
@@ -140,7 +144,7 @@ const primaryDataSamples = async () => {
             "summary": "A guide to understanding and navigating power dynamics in life and work.",
             "rating": [],
             "comments": [],
-            "image": "https://via.placeholder.com/150"
+            "image": "https://m.media-amazon.com/images/I/61J3Uu4jOLL.jpg"
           }
     ])
     console.log("Sample Data added Successfully");
@@ -151,4 +155,4 @@ const primaryDataSamples = async () => {
 }
 
 
-primaryDataSamples()
+
