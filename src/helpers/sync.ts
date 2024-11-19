@@ -1,15 +1,43 @@
-import mongoose from "mongoose";
 import Book from "@/models/book"
+import User from "@/models/user";
 import { dbConnection } from "@/lib/dbConnection";
+import {faker} from '@faker-js/faker';
+
+const createFakeUsers = async (count=10) => {
+  try {
+    await User.deleteMany({})
+     console.log("Users deleted");
+    const users = []
+    for (let i = 0; i < count; i++) {
+      const user = {
+        username: faker.internet.username(),
+        email: faker.internet.email(),
+        password: faker.internet.password(), 
+        isActive: faker.datatype.boolean(),
+        isAdmin: faker.datatype.boolean(),
+        gender: faker.helpers.arrayElement(['male', 'female', 'other']),
+        image: faker.image.avatar(),
+      };
+
+      users.push(user);
+    }
+    await User.insertMany(users)
+  } catch (error) {
+    console.error('Error creating fake users:', error);
+  }
+}
 
 
 export const primaryDataSamples = async () => {
   try {
      dbConnection()
 
+     createFakeUsers()
+     
+
      await Book.deleteMany({});
      console.log("Existing data cleared.");
-     
+
     await Book.insertMany([
         {
             "name": "The Silent Patient",

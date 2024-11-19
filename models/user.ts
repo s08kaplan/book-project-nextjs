@@ -1,8 +1,6 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
-
-
-import { passwordEncrypt,
-  emailValidate } from "@/src/helpers/validationHelpers"
+import bcrypt from "bcrypt";
+import { emailValidate } from "@/src/helpers/validationHelpers";
 
   interface IUser extends Document {
     username: string;
@@ -38,7 +36,6 @@ const UserSchema = new Schema<IUser>(
       type: String,
       trim: true,
       required: true,
-      set: (password:string) => passwordEncrypt(password),
     },
 
     isActive: {
@@ -64,5 +61,25 @@ const UserSchema = new Schema<IUser>(
   }
 );
 
+UserSchema.pre("save", async function (next) {
+  const user = this as IUser;
+
+  // Only hash the password if it has been modified or is new
+  if (!user.isModified("password")) {
+    return next();
+  }
+
+  if (!passwordRegex.test(user.password)) {
+    return next(new Error("Please provide a password that meets the required criteria."));
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+    user.password = hashedPassword;
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
 export default User;
