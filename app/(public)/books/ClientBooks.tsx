@@ -1,11 +1,14 @@
+"use client"
 import React from 'react'
 import { BooksResponse } from '@/functions/functions';
+import { useRouter } from 'next/navigation';
 
 type ClientBooksProps = {
     data: BooksResponse; 
   };
 
 const ClientBooks: React.FC<ClientBooksProps> = ({data}) => {
+  const router = useRouter()
     console.log(data);
   return (
     <section>
@@ -13,7 +16,7 @@ const ClientBooks: React.FC<ClientBooksProps> = ({data}) => {
            { data?.map(({_id,author,comments,genres, image, name, rating, summary})=> (
             <div key={_id}>
             <h3 className=''>{name}</h3>
-             <div>
+             <div onClick={()=> router.push(`/books/${_id}`)}>
                 <img src={image} alt="book image" width={150} height={150} className='hover:cursor-pointer' />
              </div>
              <p>{summary}</p>
