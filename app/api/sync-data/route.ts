@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     await primaryDataSamples();
-    return NextResponse.json({ message: "Sample data populated successfully" }, { status: 200 });
+    return NextResponse.json({ message: "Sample data populated successfully" }, { status: 200, headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     console.error("Error populating data:", error);
     return NextResponse.json({ error: true, message: "Failed to populate sample data" }, { status: 500 });

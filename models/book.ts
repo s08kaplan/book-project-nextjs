@@ -4,6 +4,7 @@ interface IBook extends Document {
   author: string;
   genres: string;
   summary?: string;
+  description?: string,
   rating: { userId: string; value: number }[];
   comments: string[];
   image?: string;
@@ -34,6 +35,11 @@ const BookSchema = new Schema<IBook>(
     },
 
     summary: {
+      type: String,
+      trim: true,
+    },
+
+    description: {
       type: String,
       trim: true,
     },

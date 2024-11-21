@@ -1,12 +1,13 @@
-type Data={
+export type Data={
     _id: string,
-    name:string,
-    author:string,
-    genres:string,
-    rating:[],
-    comments:[],
+    name: string,
+    author :string,
+    genres: string,
+    rating: [],
+    comments: [],
     image:string,
-    summary: string
+    summary: string,
+    description: string
   }
 
   export type BooksResponse = Data[];
