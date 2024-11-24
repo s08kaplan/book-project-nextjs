@@ -30,15 +30,15 @@ const BookDetail = ({params}: BookDetailProps) => {
      
 console.log(detail);
   return (
-    <section className='flex justify-center items-start p-2 h-full'>
-      <div className='flex flex-col gap-5'>
+    <section className='flex items-start justify-center h-full p-5'>
+      <div className='flex flex-col items-center justify-center gap-5'>
         <h3>
          {detail?.name}
         </h3>
-        <div>
+        <div className=''>
           <img src={detail?.image} alt="book image" width={350} height={350} />
         </div>
-        <p>
+        <p className=''>
           {detail?.description}
         </p>
         <div>

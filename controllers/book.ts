@@ -13,7 +13,7 @@ export const getBooks = async (req: Request): Promise<NextResponse> => {
   }
 };
 
-export const getSingleBook = async (bookId:string): Promise<NextResponse> => {
+export const getSingleBook = async (bookId: string): Promise<NextResponse> => {
   try {
     const book = await Book.findById(bookId);
     if (!book) {
@@ -44,3 +44,25 @@ export const createBook = async (req: Request): Promise<NextResponse> => {
     );
   }
 };
+
+export const deleteBook = async (bookId: string): Promise<NextResponse> => {
+  try {
+    const book = await Book.findByIdAndDelete(bookId);
+    if (!book) {
+      return NextResponse.json(
+        { error: true, message: "Book not found" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json(
+      { error: false, message: "Selected book deleted successfully" },
+      { status: 204 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: true, message: "Failed to fetch books" },
+      { status: 500 }
+    );
+  }
+};
+

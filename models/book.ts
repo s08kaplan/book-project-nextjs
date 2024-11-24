@@ -37,11 +37,13 @@ const BookSchema = new Schema<IBook>(
     summary: {
       type: String,
       trim: true,
+      required: true
     },
 
     description: {
       type: String,
       trim: true,
+      required: true
     },
 
     rating: [
@@ -60,6 +62,7 @@ const BookSchema = new Schema<IBook>(
     image: {
       type: String,
       trim: true,
+      required: true
     },
 
   },

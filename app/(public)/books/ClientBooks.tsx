@@ -14,12 +14,12 @@ const ClientBooks: React.FC<ClientBooksProps> = ({data}) => {
     <section>
         <div className='grid grid-cols-1 gap-3 p-3 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4'>
            { data?.map(({_id,author,comments,genres, image, name, rating, summary})=> (
-            <div key={_id}>
+            <div key={_id} className='flex flex-col items-center w-80'>
             <h3 className=''>{name}</h3>
              <div onClick={()=> router.push(`/books/${_id}`)}>
                 <img src={image} alt="book image" width={150} height={150} className='hover:cursor-pointer' />
              </div>
-             <p>{summary}</p>
+             <p className='p-5'>{summary}</p>
              <div className='flex items-center justify-between '>
                 <small>{author}</small>
                 <small>{rating}</small>
