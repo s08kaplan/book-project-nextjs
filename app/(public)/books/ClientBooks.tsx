@@ -3,7 +3,7 @@ import React from 'react'
 import { BooksResponse } from '@/functions/functions';
 import { useRouter } from 'next/navigation';
 
-type ClientBooksProps = {
+export type ClientBooksProps = {
     data: BooksResponse; 
   };
 
