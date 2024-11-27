@@ -72,7 +72,7 @@ if(status.isError){
           <small>{detail?.author}</small>
          
         </div>
-        <Comments/>
+        <Comments comments={detail?.comments || []}/>
       </div>
     </section>
   )
