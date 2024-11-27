@@ -2,13 +2,15 @@ import { dbConnection } from "@/lib/dbConnection";
 import { getUsers, createUser } from "@/controllers/user";
 import { errorHandler } from "@/middlewares/errorHandler";
 import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
+
 
 dbConnection();
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  return errorHandler(getUsers)(req, res);
+export async function GET(req: Request) {
+  return errorHandler(getUsers)(req);
 }
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  return errorHandler(createUser)(req, res);
+export async function POST(req: Request) {
+  return errorHandler(createUser)(req);
 }

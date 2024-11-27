@@ -66,6 +66,8 @@ const ClientGenres: React.FC<ClientBooksProps> = ({ data }) => {
       if (filteredBooks.length > 0) {
         setBooksByGenre(filteredBooks);
         setOpen(true);
+      }else {
+        setOpen(false)
       }
     }
   };

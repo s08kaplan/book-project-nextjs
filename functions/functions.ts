@@ -1,10 +1,18 @@
+export type Comment = {
+  _id: string,
+  userId: string,
+  bookId: string,
+  content: string,
+  createdAt: string,
+  updatedAt: string
+}
 export type Data={
     _id: string,
     name: string,
     author :string,
     genres: string,
     rating: [],
-    comments: [],
+    comments: Comment[],
     image:string,
     summary: string,
     description: string
