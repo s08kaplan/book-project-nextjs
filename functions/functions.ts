@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export type Comment = {
   _id: string,
   userId: string,
@@ -22,7 +24,7 @@ export type Data={
 
 export const fetchBooks = async (): Promise<BooksResponse> => {
     try {
-      const res = await fetch("http://localhost:3000/api/books")
+      const res = await fetch("http://localhost:3000/api/books",{ cache: 'force-cache'})
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
@@ -33,5 +35,21 @@ export const fetchBooks = async (): Promise<BooksResponse> => {
     } catch (error) {
       console.error("Books not fetched", error);
       return []
+    }
+  }
+
+  export type PostDataProps = {
+    userId: string,
+    bookId: string,
+    content: string
+  }
+
+  export const addComment = async (postData:PostDataProps) => {
+    try {
+      const data = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}comments`,postData)
+      console.log(data);
+    } catch (error) {
+      console.error("Comment not added", error);
+      
     }
   }

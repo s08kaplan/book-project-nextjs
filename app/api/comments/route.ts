@@ -1,17 +1,13 @@
 import { dbConnection } from "@/lib/dbConnection";
-import { getBooks, createBook } from "@/controllers/book";
 import { NextResponse } from "next/server";
+import { CORS_HEADERS } from "../books/route";
+import { createComment, getComments } from "@/controllers/comments";
 
 dbConnection();
 
-export const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': 'http://localhost:3000', 
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-};
 export async function GET(req: Request) {
   try {
-    return await getBooks(req);
+    return await getComments(req);
   } catch (error) {
     return NextResponse.json(
       { error: true, message: (error as Error).message },
@@ -22,7 +18,7 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const result = await createBook(req);
+    const result = await createComment(req);
 
     return NextResponse.json(result, {
       status: 201,
