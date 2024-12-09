@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { deleteComment, getSingleComment } from '@/controllers/comments';
+import { createComment, deleteComment, getSingleComment } from '@/controllers/comments';
 
 export async function GET(req: Request, { params }: { params: { commentId: string } }) {
     const { commentId } = params

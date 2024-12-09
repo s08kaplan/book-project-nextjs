@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Comment } from "@/functions/functions";
 import { useParams } from "next/navigation";
+import axios from "axios";
 
 
 type CommentsProps = {
@@ -22,6 +23,22 @@ const Comments: React.FC<CommentsProps> = ({ comments }) => {
     setContent(e.target.value)
   };
 
+
+  const sendComment = async() => {
+   const postComment = {
+      bookId,
+      userId:"673f1a217a722797aedf63d4",
+      content
+    }
+    try {
+      console.log(postComment);
+      const data = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}comments`,postComment)
+      console.log(data);
+    } catch (error) {
+      console.error("Comment not sent: ", error);
+      
+    }
+  }
  
   return (
     <section>
@@ -45,7 +62,7 @@ const Comments: React.FC<CommentsProps> = ({ comments }) => {
             onChange={handleChange}
             className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
           />
-          <button>Send</button>
+          <button onClick={sendComment}>Send</button>
         </div>
       )}
     </section>
