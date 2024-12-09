@@ -1,4 +1,5 @@
 import Comment from "@/models/comment";
+import Book from "@/models/book";
 import { NextResponse } from "next/server";
 
 export const getComments = async (req: Request): Promise<NextResponse> => {
@@ -34,8 +35,24 @@ export const getSingleComment= async (commentId: string): Promise<NextResponse> 
 export const createComment = async (req: Request): Promise<NextResponse> => {
   try {
     const body = await req.json();
-    const newComment = new Comment(body);
+    const { bookId, userId, content } = body
+
+    if (!bookId || !userId || !content) {
+      return NextResponse.json({ message: "Missing required fields" });
+    }
+
+     const newComment = new Comment({
+      userId,
+      bookId,
+      content,
+    });
     await newComment.save();
+
+    await Book.findByIdAndUpdate(
+      bookId,
+      {$push: { comments: newComment._id}},
+      { new: true}
+    )
     return NextResponse.json(newComment, { status: 201 });
   } catch (error) {
     return NextResponse.json(
