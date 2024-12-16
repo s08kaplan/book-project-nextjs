@@ -1,5 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next';
+import ClientAuthor from './ClientAuthor';
 
 export const metadata: Metadata = {
   title: "Authors",
@@ -7,8 +8,11 @@ export const metadata: Metadata = {
 };
 
 const Authors = () => {
+  
   return (
-    <div>Authors</div>
+    <div>
+       <ClientAuthor/>
+    </div>
   )
 }
 

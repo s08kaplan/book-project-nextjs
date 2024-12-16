@@ -14,7 +14,9 @@ export const getComments = async (req: Request): Promise<NextResponse> => {
   }
 };
 
-export const getSingleComment= async (commentId: string): Promise<NextResponse> => {
+export const getSingleComment = async (
+  commentId: string
+): Promise<NextResponse> => {
   try {
     const comment = await Comment.findById(commentId);
     if (!comment) {
@@ -35,13 +37,13 @@ export const getSingleComment= async (commentId: string): Promise<NextResponse> 
 export const createComment = async (req: Request): Promise<NextResponse> => {
   try {
     const body = await req.json();
-    const { bookId, userId, content } = body
+    const { bookId, userId, content } = body;
 
     if (!bookId || !userId || !content) {
       return NextResponse.json({ message: "Missing required fields" });
     }
 
-     const newComment = new Comment({
+    const newComment = new Comment({
       userId,
       bookId,
       content,
@@ -50,9 +52,9 @@ export const createComment = async (req: Request): Promise<NextResponse> => {
 
     await Book.findByIdAndUpdate(
       bookId,
-      {$push: { comments: newComment._id}},
-      { new: true}
-    )
+      { $push: { comments: newComment._id } },
+      { new: true }
+    );
     return NextResponse.json(newComment, { status: 201 });
   } catch (error) {
     return NextResponse.json(
@@ -62,7 +64,9 @@ export const createComment = async (req: Request): Promise<NextResponse> => {
   }
 };
 
-export const deleteComment = async (commentId: string): Promise<NextResponse> => {
+export const deleteComment = async (
+  commentId: string
+): Promise<NextResponse> => {
   try {
     const comment = await Comment.findByIdAndDelete(commentId);
     if (!comment) {
@@ -82,4 +86,3 @@ export const deleteComment = async (commentId: string): Promise<NextResponse> =>
     );
   }
 };
-

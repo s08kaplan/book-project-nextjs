@@ -15,7 +15,13 @@ export const getBooks = async (req: Request): Promise<NextResponse> => {
 
 export const getSingleBook = async (bookId: string): Promise<NextResponse> => {
   try {
-    const book = await Book.findById(bookId);
+    const book = await Book.findById(bookId)
+    // .populate({
+    //   path: "comments",
+    //   populate: [
+    //     { path: "userId", select: "username" }, 
+    //   ],
+    // });
     if (!book) {
       return NextResponse.json(
         { error: true, message: "Book not found" },

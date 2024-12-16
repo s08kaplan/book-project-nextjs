@@ -53,3 +53,19 @@ export const fetchBooks = async (): Promise<BooksResponse> => {
       
     }
   }
+
+  export const getBookByAuthor = async (name:string): Promise<BooksResponse> => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/books?filter[author]=${name}`,{ cache: 'force-cache'})
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+  
+      const data: BooksResponse = await res.json()
+      console.log(data);
+      return data
+    } catch (error) {
+      console.error("Books not fetched", error);
+      return []
+    }
+  }

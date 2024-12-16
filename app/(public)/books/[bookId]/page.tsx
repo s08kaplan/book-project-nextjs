@@ -36,7 +36,7 @@ const BookDetail = ({params}: BookDetailProps) => {
         isError: false
       }))
     } catch (error) {
-      console.error(error);
+      console.error("book detail fetching error: ",error);
       setStatus((prev) => ({
         ...prev,
         isError: true,
