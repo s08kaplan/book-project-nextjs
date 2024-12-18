@@ -2,7 +2,12 @@ import { NextResponse } from 'next/server';
 import { deleteBook, getSingleBook } from '@/controllers/book'; 
 
 export async function GET(req: Request, { params }: { params: { bookId: string } }) {
-    const { bookId } = params
+  const awaitedParams = await params;
+    const { bookId } = awaitedParams;
+    if (!bookId) {
+      return NextResponse.json({ error: 'Book ID not provided' }, { status: 400 });
+    }
+  
   try {
     return await getSingleBook(bookId); 
   } catch (error) {

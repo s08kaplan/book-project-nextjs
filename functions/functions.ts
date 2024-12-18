@@ -24,7 +24,7 @@ export type Data={
 
 export const fetchBooks = async (): Promise<BooksResponse> => {
     try {
-      const res = await fetch("http://localhost:3000/api/books",{ cache: 'force-cache'})
+      const res = await fetch("http://localhost:3000/api/books",{ cache: 'no-store'})
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }

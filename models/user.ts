@@ -1,6 +1,6 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
+import mongoose, { Document, Model, Schema, CallbackError } from "mongoose";
 import bcrypt from "bcrypt";
-import { emailValidate } from "@/src/helpers/validationHelpers";
+import { emailValidate, passwordRegex, saltRounds } from "@/src/helpers/validationHelpers";
 
   interface IUser extends Document {
     username: string;
@@ -64,7 +64,7 @@ const UserSchema = new Schema<IUser>(
 UserSchema.pre("save", async function (next) {
   const user = this as IUser;
 
-  // Only hash the password if it has been modified or is new
+  
   if (!user.isModified("password")) {
     return next();
   }
@@ -77,8 +77,12 @@ UserSchema.pre("save", async function (next) {
     const hashedPassword = await bcrypt.hash(user.password, saltRounds);
     user.password = hashedPassword;
     next();
-  } catch (error) {
-    next(error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      next(error);
+    } else {
+      next(new Error("An unknown error occurred during password hashing"));
+    }
   }
 });
 const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);

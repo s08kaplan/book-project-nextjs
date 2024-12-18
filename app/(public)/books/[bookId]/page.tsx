@@ -46,7 +46,9 @@ const BookDetail = ({params}: BookDetailProps) => {
   }
 
   useEffect(() => {
-   getBookDetail(bookId)
+    if (bookId) {
+      getBookDetail(bookId);
+    }
   }, [bookId])
      
 console.log(detail);

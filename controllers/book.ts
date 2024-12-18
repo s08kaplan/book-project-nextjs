@@ -16,20 +16,19 @@ export const getBooks = async (req: Request): Promise<NextResponse> => {
 export const getSingleBook = async (bookId: string): Promise<NextResponse> => {
   try {
     const book = await Book.findById(bookId)
-    // .populate({
-    //   path: "comments",
-    //   populate: [
-    //     { path: "userId", select: "username" }, 
-    //   ],
-    // });
+    .populate([{path: 'comments', select: 'content', populate:{path:"userId", select:"username"} }]);
+  
+   
     if (!book) {
       return NextResponse.json(
-        { error: true, message: "Book not found" },
+        { error: true, message: "Book not found", bookId },
         { status: 404 }
       );
     }
     return NextResponse.json(book, { status: 200 });
   } catch (error) {
+    console.error('Error during population or query:', error);
+    
     return NextResponse.json(
       { error: true, message: "Failed to fetch books" },
       { status: 500 }

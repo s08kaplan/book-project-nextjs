@@ -27,7 +27,7 @@ const Comments: React.FC<CommentsProps> = ({ comments }) => {
   const sendComment = async() => {
    const postComment = {
       bookId,
-      userId:"673f1a217a722797aedf63d4",
+      userId:"6760870d2b24f0abcd4d7553",
       content
     }
     try {
