@@ -24,7 +24,7 @@ export type Data={
 
 export const fetchBooks = async (): Promise<BooksResponse> => {
     try {
-      const res = await fetch("http://localhost:3000/api/books", {next: { revalidate: 60 }})
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}books`, {next: { revalidate: 60 }})
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }

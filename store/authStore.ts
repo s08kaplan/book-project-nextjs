@@ -1,10 +1,8 @@
-import { createStore } from 'zustand/vanilla'
 import { create } from 'zustand';
 
 export type UserState = {
     username: string;
     email: string;
-    password: string;
     isActive: boolean;
     isAdmin: boolean;
     gender?: string;
@@ -12,9 +10,9 @@ export type UserState = {
   }
   
   export type UserActions = {
-    registerUser: (user: Partial<UserState>) => void;
-  loginUser: (email: string, password: string) => void;
-  logoutUser: () => void;
+  registerUser: (user: Partial<UserState>) =>  Promise<void>;
+  loginUser: (email: string, password: string) =>  Promise<void>;
+  logoutUser: () =>  Promise<void>;
   }
 
   export type AuthStore = UserState & UserActions
@@ -22,37 +20,79 @@ export type UserState = {
   export const defaultInitState: UserState = {
     username: "",
     email: "",
-    password: "",
-    isActive: true,
+    isActive: false,
     isAdmin: false,
     gender: "",
     image: "",
   }
-  export const createAuthStore = (initState: UserState = defaultInitState) => {
-    return createStore<AuthStore>()((set) => ({
-      ...initState,
-      registerUser: (user) =>
+  export const useAuthStore = create<AuthStore>((set) => ({
+    ...defaultInitState,
+    registerUser: async (user) => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}users`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(user),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Registration failed');
+        }
+  
+        const userData = await response.json();
         set((state) => ({
           ...state,
-          ...user,
-        })),
-      loginUser: (email, password) =>
-        set((state) => {
-          
-          if (email === 'test@test.com' && password === 'password') {
-            return {
-              ...state,
-              username: 'Test User',
-              email,
-              isAdmin: true,
-              isActive: true,
-            };
-          }
-          return state;
-        }),
-      logoutUser: () =>
-        set(() => ({
-          ...defaultInitState,
-        })),
-    }));
-  };
+          ...userData, 
+          isActive: true,
+        }));
+      } catch (error) {
+        console.error('Login error:', error);
+        set((state) => ({
+          ...state,
+          isActive: false,
+        }));
+      }
+     
+    },
+    loginUser: async (email, password) => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Login failed');
+        }
+  
+        const userData = await response.json();
+        set((state) => ({
+          ...state,
+          ...userData, 
+          isActive: true,
+        }));
+      } catch (error) {
+        console.error('Login error:', error);
+        set((state) => ({
+          ...state,
+          isActive: false,
+        }));
+      }
+    },
+    logoutUser: async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}auth/logout`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+         set(() => ({
+        ...defaultInitState,
+      }));
+      } catch (error) {
+        console.error("Log out error: ",error);
+        
+      }
+     
+    },
+  }));
