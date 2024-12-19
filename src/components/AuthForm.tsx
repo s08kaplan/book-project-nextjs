@@ -25,6 +25,7 @@ const formInputs = [
 ];
 
 const AuthForm: React.FC<AuthFormProps> = ({ formType, buttonText }) => {
+ 
   const router = useRouter();
   const {
     register,
@@ -33,7 +34,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ formType, buttonText }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    
+    
+    console.log(data);
+  }
 
   const handleNavigate = () => {
     formType == "Login" ? router.push("/register") : router.push("/login");

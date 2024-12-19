@@ -2,7 +2,7 @@ import axios from "axios";
 
 export type Comment = {
   _id: string,
-  userId: string,
+  userId: {_id:string, image: string, username: string},
   bookId: string,
   content: string,
   createdAt: string,
@@ -24,7 +24,7 @@ export type Data={
 
 export const fetchBooks = async (): Promise<BooksResponse> => {
     try {
-      const res = await fetch("http://localhost:3000/api/books",{ cache: 'no-store'})
+      const res = await fetch("http://localhost:3000/api/books", {next: { revalidate: 60 }})
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Comment } from "@/functions/functions";
 import { useParams } from "next/navigation";
 import axios from "axios";
+import Image from "next/image";
 
 
 type CommentsProps = {
@@ -51,7 +52,15 @@ const Comments: React.FC<CommentsProps> = ({ comments }) => {
       <div>
         {show &&
           comments?.map((comment) => (
-            <div key={comment._id}>{comment.content}</div>
+            <main key={comment._id}>
+              <div>
+                {comment.content}
+              </div>
+              <div>
+                {/* <Image src={comment.userId?.image} alt="user image" width={50} height={50}/> */}
+                <img src={comment.userId?.image} alt="user image" width={50} height={50} />
+              </div>
+              </main>
           ))}
       </div>
       {show && (

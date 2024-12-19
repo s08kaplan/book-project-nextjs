@@ -16,7 +16,7 @@ export const getBooks = async (req: Request): Promise<NextResponse> => {
 export const getSingleBook = async (bookId: string): Promise<NextResponse> => {
   try {
     const book = await Book.findById(bookId)
-    .populate([{path: 'comments', select: 'content', populate:{path:"userId", select:"username"} }]);
+    .populate([{path: 'comments', select: 'content', populate:{path:"userId", select:"username image"} }]);
   
    
     if (!book) {
