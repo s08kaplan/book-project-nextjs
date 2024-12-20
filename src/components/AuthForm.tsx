@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "@/src/helpers/formValidation";
 import "@/app/globals.css";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/authStore";
 
 type Inputs = {
   username: string;
@@ -25,7 +26,7 @@ const formInputs = [
 ];
 
 const AuthForm: React.FC<AuthFormProps> = ({ formType, buttonText }) => {
- 
+ const { loginUser, registerUser } = useAuthStore()
   const router = useRouter();
   const {
     register,
@@ -34,9 +35,20 @@ const AuthForm: React.FC<AuthFormProps> = ({ formType, buttonText }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    
-    
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      if (formType === "Login") {
+        const { email, password } = data;
+        await loginUser(email, password); 
+      } else {
+        await registerUser(data); 
+      }
+      console.log("Form submitted successfully:", data);
+      router.push("/dashboard");
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    }
+ 
     console.log(data);
   }
 
