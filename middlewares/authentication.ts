@@ -4,6 +4,10 @@ import jwt from 'jsonwebtoken';
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET_KEY
 
+if (!SECRET_KEY) {
+    throw new Error("JWT secret key is not defined in the environment variables.");
+  }
+
 export function authMiddleware(request: NextRequest) {
     const authHeader = request.headers.get("Authorization")
   const token = authHeader?.split(" ")[1]
