@@ -2,15 +2,15 @@
 import { Data as Book, BooksResponse } from '@/functions/functions'
 import BookDetailLoading from '@/src/components/BookDetailLoading'
 import Comments from '@/src/components/Comments'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, use } from 'react'
 
-type BookDetailProps = {
-  params: { bookId: string}
+type Params = {
+  bookId: string
 }
 
 
-const BookDetail = ({params}: BookDetailProps) => {
-  const { bookId } = params
+const BookDetail = ({params}: { params: Promise<Params> }) => {
+  const { bookId } = use(params)
   console.log(bookId);
   const [detail, setDetail] = useState<Book | null>(null) 
   const [status, setStatus] = useState({
@@ -25,7 +25,7 @@ const BookDetail = ({params}: BookDetailProps) => {
         ...prev,
         isLoading: true
       }))
-      const res = await fetch(`http://localhost:3000/api/books/${id}`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}books/${id}`)
       const data:Book = await res.json()
       console.log(data);
       setDetail(data)

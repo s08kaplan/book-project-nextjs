@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "@/models/user";
 
-const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET_KEY;
+const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string;
 
 if (!SECRET_KEY) {
     throw new Error("JWT secret key is not defined in the environment variables.");

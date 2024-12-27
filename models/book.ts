@@ -6,7 +6,8 @@ interface IBook extends Document {
   summary?: string;
   description?: string,
   rating: { userId: string; value: number }[];
-  comments: string[];
+  // comments: string[];
+  comments: mongoose.Types.ObjectId[];
   image?: string;
 }
 

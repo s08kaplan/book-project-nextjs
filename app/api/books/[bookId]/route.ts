@@ -4,6 +4,7 @@ import { deleteBook, getSingleBook } from '@/controllers/book';
 export async function GET(req: Request, { params }: { params: { bookId: string } }) {
   const awaitedParams = await params;
     const { bookId } = awaitedParams;
+    console.log("bookId: ",bookId);
     if (!bookId) {
       return NextResponse.json({ error: 'Book ID not provided' }, { status: 400 });
     }
