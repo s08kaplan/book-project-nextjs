@@ -10,9 +10,9 @@ if (!SECRET_KEY) {
     throw new Error("JWT secret key is not defined in the environment variables.");
   }
 
-export async function login(req: NextRequest, res: NextResponse) {
+export async function login(data: {username: string, password: string}) {
   try {
-    const { username, password } = await req.json();
+    const { username, password } = data;
     if (!(username && password)) {
       return NextResponse.json(
         { message: "Please enter your username and password" },

@@ -8,11 +8,25 @@ const createFakeUsers = async (count=10) => {
     await User.deleteMany({})
      console.log("Users deleted");
     const users = []
+
+    const generatePassword = (minLength = 6, maxLength = 16, includeSymbols = true) => {
+      const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      const symbols = "@$!%*?&";
+      const base = includeSymbols ? charset + symbols : charset;
+
+      const length = maxLength
+      ? faker.number.int({ min: minLength, max: maxLength })
+      : minLength;
+    
+      return Array.from({ length }, () => base[Math.floor(Math.random() * base.length)]).join('');
+    };
+
     for (let i = 0; i < count; i++) {
       const user = {
         username: faker.internet.username(),
         email: faker.internet.email(),
-        password: faker.internet.password(), 
+        // password: faker.internet.password(6, true, true), 
+        password: generatePassword(6,15, true), 
         isActive: faker.datatype.boolean(),
         isAdmin: faker.datatype.boolean(),
         gender: faker.helpers.arrayElement(['male', 'female', 'other']),

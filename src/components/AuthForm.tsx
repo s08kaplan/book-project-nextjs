@@ -38,8 +38,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ formType, buttonText }) => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       if (formType === "Login") {
-        const { email, password } = data;
-        await loginUser(email, password); 
+        const { username, password } = data;
+        await loginUser(username, password); 
       } else {
         await registerUser(data); 
       }

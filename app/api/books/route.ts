@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 }
 
 
-export function OPTIONS() {
+export async function OPTIONS() {
   return NextResponse.json(
     {},
     {

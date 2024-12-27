@@ -32,8 +32,8 @@ export const contactSchema = object({
       .matches(/[a-z]/, "at least one lowercase letter")
       .matches(/[A-Z]/, "at least one UPPERCASE letter")
       .matches(
-        /[!/[@$!%*?&]+/,
-        "at least one special character (!/[@$!%*?&) must be provided"
+        /[@$!%*?&]+/,
+        "at least one special character (@$!%*?&) must be provided"
       ),
   });
   
