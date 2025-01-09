@@ -60,6 +60,7 @@ const Comments: React.FC<CommentsProps> = ({ comments }) => {
                 {/* <Image src={comment.userId?.image} alt="user image" width={50} height={50}/> */}
                 <img src={comment.userId?.image} alt="user image" width={50} height={50} />
               </div>
+              <small>{new Date(comment.createdAt).toLocaleDateString()}</small>
               </main>
           ))}
       </div>

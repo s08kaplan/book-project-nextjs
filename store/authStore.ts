@@ -55,6 +55,8 @@ export type UserState = {
      
     },
     loginUser: async (username, password) => {
+      // console.log("login username in auth store ===> ", username);
+      // console.log("login password in auth store ===> ", password);
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}auth/login`, {
           method: 'POST',
@@ -67,6 +69,11 @@ export type UserState = {
         }
   
         const userData = await response.json();
+        // const {user,token}= await response.json();
+        //!CHECK
+        console.log("userData===>>>>",userData);
+        // console.log("userData===>>>>",user);
+        // console.log("userData token===>>>>",token);
         set((state) => ({
           ...state,
           ...userData, 

@@ -29,7 +29,7 @@ export async function login(data: {username: string, password: string}) {
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword)
       return NextResponse.json(
-        { message: "Password is invalid" },
+        { message: "Password is invalid",passwordStatus:isValidPassword },
         { status: 401 }
       );
     const token = jwt.sign(
@@ -43,9 +43,21 @@ export async function login(data: {username: string, password: string}) {
       SECRET_KEY,
       { expiresIn: "1h" }
     );
-    const response = NextResponse.json({ message: "Login successful", token });
+    const response = NextResponse.json({ message: "Login successful", token, user });
     response.cookies.set("authToken", token, { httpOnly: true, path: "/" });
     return response;
+    // return {
+    //   status: 200,
+    //   message: "Login successful",
+    //   token,
+    //   user: {
+    //     id: user._id,
+    //     email: user.email,
+    //     username: user.username,
+    //     image: user.image,
+    //     gender: user.gender,
+    //   },
+    // };
   } catch (error) {
     console.error("Login error: ", error);
     return NextResponse.json({ message: "An error occurred: ", error });

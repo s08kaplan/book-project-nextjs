@@ -16,6 +16,9 @@ export const getBooks = async (req: Request): Promise<NextResponse> => {
 export const getSingleBook = async (bookId: string): Promise<NextResponse> => {
   try {
     const book = await Book.findById(bookId)
+    .populate({path: 'comments', select: 'content' })
+    .populate({path: 'comments', populate:{path:"userId", select:"username image"} })
+    // .populate({path: 'comments', select: 'bookId', populate:{ select:"name"} });
     // .populate({path: 'comments', select: 'content', populate:{path:"userId", select:"username image"} });
     // .populate<{ comments: { content: string; userId: { username: string; image: string } }[] }>("comments")
     // .exec();
