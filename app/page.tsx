@@ -1,3 +1,4 @@
+import ImageSlider from "@/src/components/slider/ImageSlider";
 import Image from "next/image";
 
 
@@ -18,7 +19,7 @@ export default function Home() {
     <main className="relative h-screen overflow-hidden bg-gray-900 w-dvw">
     {/* Animated Books */}
     {/* <div className="absolute flex flex-col items-center justify-center w-full h-full"> */}
-    <div className="absolute h-full w-[900px]">
+    {/* <div className="absolute h-full w-[900px]">
       {books.map((book, index) => (
         <div
           key={book.id}
@@ -39,7 +40,7 @@ export default function Home() {
           />
         </div>
       ))}
-    </div>
+    </div> */}
     {/* Background and Title */}
     <div className="absolute inset-0 flex items-center justify-center">
       {/* <h1 className="p-4 text-4xl font-bold text-white bg-black bg-opacity-50 rounded-md"> */}
@@ -47,6 +48,7 @@ export default function Home() {
         Life is beautiful with Books!
       </h1>
     </div>
+    <ImageSlider images={books} />
   </main>
   );
 }
