@@ -1,3 +1,4 @@
+import { dbConnection } from "@/lib/dbConnection";
 import Book from "@/models/book";
 import { NextResponse } from "next/server";
 
@@ -14,10 +15,16 @@ export const getBooks = async (req: Request): Promise<NextResponse> => {
 };
 
 export const getSingleBook = async (bookId: string): Promise<NextResponse> => {
+  await dbConnection();
   try {
     const book = await Book.findById(bookId)
-    .populate({path: 'comments', select: 'content' })
-    .populate({path: 'comments', populate:{path:"userId", select:"username image"} })
+    // .populate({
+    //   path: 'comments',
+    //   select: 'content userId',
+    //   populate: { path: 'userId', select: 'username image' },
+    // }); 
+    // .populate({path: 'comments', select: 'content' })
+    // .populate({path: 'comments', populate:{path:"userId", select:"username image"} })
     // .populate({path: 'comments', select: 'bookId', populate:{ select:"name"} });
     // .populate({path: 'comments', select: 'content', populate:{path:"userId", select:"username image"} });
     // .populate<{ comments: { content: string; userId: { username: string; image: string } }[] }>("comments")
@@ -34,7 +41,7 @@ export const getSingleBook = async (bookId: string): Promise<NextResponse> => {
     console.error('Error during population or query:', error);
     
     return NextResponse.json(
-      { error: true, message: "Failed to fetch books" },
+      { error: true, message: "Failed to fetch books", details: error.message },
       { status: 500 }
     );
   }

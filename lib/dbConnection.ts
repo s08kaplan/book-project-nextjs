@@ -15,6 +15,7 @@ console.log("mongoUrI:", mongoURI);
 
     await mongoose.connect(mongoURI);
     console.log("***MONGODB CONNECTED SUCCESSFULLY***");
+    // console.log("Registered Models:", mongoose.models);
   } catch (error) {
     console.log("DB not connected!!!", error);
     throw error;
